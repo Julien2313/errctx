@@ -4,8 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"testing"
-
-	"gotest.tools/v3/assert"
 )
 
 func TestIs(t *testing.T) {
@@ -227,7 +225,11 @@ func (e AnotherCustomError) Error() string {
 
 func TestWith(t *testing.T) {
 	errCtx := Errorf("custom error: %w", errors.New("base error")).With("field", "value")
-	assert.Equal(t, errCtx.Value("field"), "value")
+	if errCtx.Value("field") != "value" {
+		t.Errorf("Mismatch for key 'field' expected '%#v' got '%#v'", "value", errCtx.Value("field"))
+	}
 
-	assert.Equal(t, ErrToCtx(error(errCtx)).Value("field"), "value")
+	if ErrToCtx(error(errCtx)).Value("field") != "value" {
+		t.Errorf("Mismatch for key 'field' expected '%#v' got '%#v'", "value", ErrToCtx(error(errCtx)).Value("field"))
+	}
 }

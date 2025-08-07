@@ -63,7 +63,10 @@ func checkMultiOccurrenceChar(s string) error {
 ```
 
 Output with errctx:
+```
 {"level":"error","error":"multi occurrence char","chars":["l","o"],"time":"2025-07-13T23:07:44+02:00","message":"error in main"}
-
-Output  without errctx:
+```
+Output  without errctx (as an example):
+```
 {"level":"error","error":"multi occurrence char: \"l\", \"o\","time":"2025-07-13T23:07:44+02:00","message":"error in main"}
+```
